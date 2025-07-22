@@ -7,111 +7,120 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="container">
-  <h2>
-    Avaliação de Imóvel - Comparação & Ross-Heidecken com Gráficos
-    <button type="button" class="btn theme-toggle" onclick="toggleTema()">🌙/☀️ Tema</button>
-  </h2>
-  <div class="amostra-btns">
-    <button type="button" class="btn" onclick="addAmostra()">+ Amostra</button>
-    <button type="button" class="btn" onclick="removeAmostra()">- Amostra</button>
-    <button type="button" class="btn" onclick="exportarPDF()">Exportar PDF</button>
-    <button type="button" class="btn" onclick="exportarExcel()">Exportar Excel</button>
+  <!-- Botões de idioma -->
+  <div style="text-align:right; margin-bottom:10px;">
+    <button onclick="setLanguage('pt')" class="btn">🇧🇷 <span data-i18n="idiomaPt">Português</span></button>
+    <button onclick="setLanguage('en')" class="btn">🇺🇸 <span data-i18n="idiomaEn">English</span></button>
   </div>
-  <form id="formulario">
-    <h3>1. Imóveis Referenciais (Amostra)</h3>
+  <div class="container">
+    <h2>
+      <span data-i18n="avaliacaoTitulo">Avaliação de Imóvel - Comparação & Ross-Heidecken com Gráficos</span>
+      <button type="button" class="btn theme-toggle" onclick="toggleTema()">🌙/☀️ <span data-i18n="tema">Tema</span></button>
+    </h2>
+    <div class="amostra-btns">
+      <button type="button" class="btn" onclick="addAmostra()"><span data-i18n="btnAddAmostra">+ Amostra</span></button>
+      <button type="button" class="btn" onclick="removeAmostra()"><span data-i18n="btnRemoveAmostra">- Amostra</span></button>
+      <button type="button" class="btn" onclick="exportarPDF()"><span data-i18n="btnExportarPDF">Exportar PDF</span></button>
+      <button type="button" class="btn" onclick="exportarExcel()"><span data-i18n="btnExportarExcel">Exportar Excel</span></button>
+    </div>
+    <form id="formulario">
+      <h3 data-i18n="referenciais">1. Imóveis Referenciais (Amostra)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="imovel">Imóvel</th>
+            <th data-i18n="fonte">Fonte</th>
+            <th data-i18n="valor">Valor (R$)</th>
+            <th data-i18n="area">Área (m²)</th>
+            <th data-i18n="estadoCons">Estado Cons.</th>
+            <th data-i18n="vidaUtil">Vida Útil (anos)</th>
+            <th data-i18n="idade">Idade (anos)</th>
+          </tr>
+        </thead>
+        <tbody id="referenciais"></tbody>
+      </table>
+      <div class="small" data-i18n="legendaEstado">
+        Estado Cons.: A (Ótimo), B (Muito Bom), C (Bom), D (Intermediário), E (Regular), F (Deficiente), G (Mau), H (Muito Mau)
+      </div>
+      <h3 data-i18n="imovelAvaliando">2. Imóvel Avaliando (IA)</h3>
+      <table>
+        <tr>
+          <th data-i18n="natureza">Natureza</th>
+          <th data-i18n="custoBruto">Custo Bruto m² (R$)</th>
+          <th data-i18n="estadoCons">Estado Cons.</th>
+          <th data-i18n="area">Área (m²)</th>
+          <th data-i18n="idade">Idade (anos)</th>
+        </tr>
+        <tr>
+          <td>
+            <select id="ia_natureza" required>
+               <option data-i18n="selecione" value="">Selecione</option>
+  <option data-i18n="apartamentos" value="APARTAMENTOS">APARTAMENTOS</option>
+  <option data-i18n="casasAlvenaria" value="CASAS DE ALVENARIA">CASAS DE ALVENARIA</option>
+  <option data-i18n="casasMadeira" value="CASAS DE MADEIRA">CASAS DE MADEIRA</option>
+  <option data-i18n="bancos" value="BANCOS">BANCOS</option>
+  <option data-i18n="hoteis" value="HOTÉIS">HOTÉIS</option>
+  <option data-i18n="lojas" value="LOJAS">LOJAS</option>
+  <option data-i18n="teatros" value="TEATROS">TEATROS</option>
+  <option data-i18n="armazens" value="ARMAZÉNS">ARMAZÉNS</option>
+  <option data-i18n="fabricas" value="FÁBRICAS">FÁBRICAS</option>
+  <option data-i18n="constRurais" value="CONST. RURAIS">CONST. RURAIS</option>
+  <option data-i18n="garagens" value="GARAGENS">GARAGENS</option>
+  <option data-i18n="edifEscritorios" value="EDIF ESCRITÓRIOS">EDIF ESCRITÓRIOS</option>
+  <option data-i18n="depositos" value="DEPÓSITOS">DEPÓSITOS</option>
+  <option data-i18n="galpoes" value="GALPÕES">GALPÕES</option>
+  <option data-i18n="silos" value="SILOS">SILOS</option>
+
+            </select>
+          </td>
+          <td><input type="text" min="0" id="ia_custo" class="valor-input" required></td>
+          <td>
+            <select id="ia_estado" required>
+               <option data-i18n="selecione" value="">Selecione</option>
+  <option data-i18n="aOtimo" value="A">A - Ótimo</option>
+  <option data-i18n="bMuitoBom" value="B">B - Muito Bom</option>
+  <option data-i18n="cBom" value="C">C - Bom</option>
+  <option data-i18n="dIntermediario" value="D">D - Intermediário</option>
+  <option data-i18n="eRegular" value="E">E - Regular</option>
+  <option data-i18n="fDeficiente" value="F">F - Deficiente</option>
+  <option data-i18n="gMau" value="G">G - Mau</option>
+  <option data-i18n="hMuitoMau" value="H">H - Muito Mau</option>
+</select>
+          </td>
+          <td><input type="text" min="0" id="ia_area" class="area-input" required></td>
+          <td><input type="number" min="0" id="ia_idade" required></td>
+        </tr>
+      </table>
+      <button type="button" class="btn" onclick="calcular()"><span data-i18n="calcular">Calcular Avaliação</span></button>
+    </form>
+    <div id="resultado" class="result" style="display:none"></div>
+    <div id="avaliacaoDetalhe" class="avaliacao-detalhe" style="display:none"></div>
+    <h3 data-i18n="homogeneizacao">Homogeneização e Diferença de Idade</h3>
     <table>
       <thead>
         <tr>
-          <th>Imóvel</th>
-          <th>Fonte</th>
-          <th>Valor (R$)</th>
-          <th>Área (m²)</th>
-          <th>Estado Cons.</th>
-          <th>Vida Útil (anos)</th>
-          <th>Idade (anos)</th>
+          <th data-i18n="amostra">Amostra</th>
+          <th data-i18n="valorReduzido">Valor Reduzido (R$)</th>
+          <th data-i18n="area">Área (m²)</th>
+          <th data-i18n="valorUnitario">Valor Unitário (R$/m²)</th>
+          <th data-i18n="pctVidaUtil">% Vida Útil</th>
+          <th data-i18n="fatorRoss">Fator Ross-Heidecken</th>
+          <th data-i18n="valorHomogeneizado">Valor Homogeneizado (R$/m²)</th>
+          <th data-i18n="difIdade">Dif. Idade (anos)</th>
+          <th data-i18n="correlacaoRH">Correlação RH</th>
         </tr>
       </thead>
-      <tbody id="referenciais"></tbody>
+      <tbody id="tabelaHomogeneizacao"></tbody>
     </table>
-    <div class="small">Estado Cons.: A (Ótimo), B (Muito Bom), C (Bom), D (Intermediário), E (Regular), F (Deficiente), G (Mau), H (Muito Mau)</div>
-    <h3>2. Imóvel Avaliando (IA)</h3>
-    <table>
-      <tr>
-        <th>Natureza</th>
-        <th>Custo Bruto m² (R$)</th>
-        <th>Estado Cons.</th>
-        <th>Área (m²)</th>
-        <th>Idade (anos)</th>
-      </tr>
-      <tr>
-        <td>
-          <select id="ia_natureza" required>
-            <option value="">Selecione</option>
-            <option value="APARTAMENTOS">APARTAMENTOS</option>
-            <option value="CASAS DE ALVENARIA">CASAS DE ALVENARIA</option>
-            <option value="CASAS DE MADEIRA">CASAS DE MADEIRA</option>
-            <option value="BANCOS">BANCOS</option>
-            <option value="HOTÉIS">HOTÉIS</option>
-            <option value="LOJAS">LOJAS</option>
-            <option value="TEATROS">TEATROS</option>
-            <option value="ARMAZÉNS">ARMAZÉNS</option>
-            <option value="FÁBRICAS">FÁBRICAS</option>
-            <option value="CONST. RURAIS">CONST. RURAIS</option>
-            <option value="GARAGENS">GARAGENS</option>
-            <option value="EDIF ESCRITÓRIOS">EDIF ESCRITÓRIOS</option>
-            <option value="DEPÓSITOS">DEPÓSITOS</option>
-            <option value="GALPÕES">GALPÕES</option>
-            <option value="SILOS">SILOS</option>
-          </select>
-        </td>
-        <td><input type="text" min="0" id="ia_custo" class="valor-input" required></td>
-        <td>
-          <select id="ia_estado" required>
-            <option value="">Selecione</option>
-            <option value="A">A - Ótimo</option>
-            <option value="B">B - Muito Bom</option>
-            <option value="C">C - Bom</option>
-            <option value="D">D - Intermediário</option>
-            <option value="E">E - Regular</option>
-            <option value="F">F - Deficiente</option>
-            <option value="G">G - Mau</option>
-            <option value="H">H - Muito Mau</option>
-          </select>
-        </td>
-        <td><input type="text" min="0" id="ia_area" class="area-input" required></td>
-        <td><input type="number" min="0" id="ia_idade" required></td>
-      </tr>
-    </table>
-    <button type="button" class="btn" onclick="calcular()">Calcular Avaliação</button>
-  </form>
-  <div id="resultado" class="result" style="display:none"></div>
-  <div id="avaliacaoDetalhe" class="avaliacao-detalhe" style="display:none"></div>
-  <h3>Homogeneização e Diferença de Idade</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Amostra</th>
-        <th>Valor Reduzido (R$)</th>
-        <th>Área (m²)</th>
-        <th>Valor Unitário (R$/m²)</th>
-        <th>% Vida Útil</th>
-        <th>Fator Ross-Heidecken</th>
-        <th>Valor Homogeneizado (R$/m²)</th>
-        <th>Dif. Idade (anos)</th>
-        <th>Correlação RH</th>
-      </tr>
-    </thead>
-    <tbody id="tabelaHomogeneizacao"></tbody>
-  </table>
-  <h3>Gráficos Comparativos</h3>
-  <canvas id="graficoValoresBrutos" width="600" height="300"></canvas>
-  <canvas id="graficoValoresM2" width="600" height="300"></canvas>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.7.0/jspdf.plugin.autotable.min.js"></script>
-<script src="script.js"></script>
+    <h3 data-i18n="graficos">Gráficos Comparativos</h3>
+    <canvas id="graficoValoresBrutos" width="600" height="300"></canvas>
+    <canvas id="graficoValoresM2" width="600" height="300"></canvas>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.7.0/jspdf.plugin.autotable.min.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>

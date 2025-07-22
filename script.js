@@ -1,3 +1,151 @@
+// Traduções multilíngue
+const translations = {
+  pt: {
+    idiomaPt: "Português",
+    idiomaEn: "Inglês",
+    tema: "Tema",
+    avaliacaoTitulo: "Avaliação de Imóvel - Comparação & Ross-Heidecken com Gráficos",
+    btnAddAmostra: "+ Amostra",
+    btnRemoveAmostra: "- Amostra",
+    btnExportarPDF: "Exportar PDF",
+    btnExportarExcel: "Exportar Excel",
+    referenciais: "1. Imóveis Referenciais (Amostra)",
+    imovel: "Imóvel",
+    fonte: "Fonte",
+    valor: "Valor (R$)",
+    area: "Área (m²)",
+    estadoCons: "Estado Cons.",
+    vidaUtil: "Vida Útil (anos)",
+    idade: "Idade (anos)",
+    legendaEstado: "Estado Cons.: A (Ótimo), B (Muito Bom), C (Bom), D (Intermediário), E (Regular), F (Deficiente), G (Mau), H (Muito Mau)",
+    imovelAvaliando: "2. Imóvel Avaliando (IA)",
+    natureza: "Natureza",
+    custoBruto: "Custo Bruto m² (R$)",
+    calcular: "Calcular Avaliação",
+    homogeneizacao: "Homogeneização e Diferença de Idade",
+    amostra: "Amostra",
+    valorReduzido: "Valor Reduzido (R$)",
+    valorUnitario: "Valor Unitário (R$/m²)",
+    pctVidaUtil: "% Vida Útil",
+    fatorRoss: "Fator Ross-Heidecken",
+    valorHomogeneizado: "Valor Homogeneizado (R$/m²)",
+    difIdade: "Dif. Idade (anos)",
+    correlacaoRH: "Correlação RH",
+    graficos: "Gráficos Comparativos",
+    selecione: "Selecione",
+    apartamentos: "APARTAMENTOS",
+    casasAlvenaria: "CASAS DE ALVENARIA",
+    casasMadeira: "CASAS DE MADEIRA",
+    bancos: "BANCOS",
+    hoteis: "HOTÉIS",
+    lojas: "LOJAS",
+    teatros: "TEATROS",
+    armazens: "ARMAZÉNS",
+    fabricas: "FÁBRICAS",
+    constRurais: "CONST. RURAIS",
+    garagens: "GARAGENS",
+    edifEscritorios: "EDIF ESCRITÓRIOS",
+    depositos: "DEPÓSITOS",
+    galpoes: "GALPÕES",
+    silos: "SILOS",
+    aOtimo: "A - Ótimo",
+    bMuitoBom: "B - Muito Bom",
+    cBom: "C - Bom",
+    dIntermediario: "D - Intermediário",
+    eRegular: "E - Regular",
+    fDeficiente: "F - Deficiente",
+    gMau: "G - Mau",
+    hMuitoMau: "H - Muito Mau"
+  },
+  en: {
+    idiomaPt: "Portuguese",
+    idiomaEn: "English",
+    tema: "Theme",
+    avaliacaoTitulo: "Property Appraisal - Comparison & Ross-Heidecken with Charts",
+    btnAddAmostra: "+ Sample",
+    btnRemoveAmostra: "- Sample",
+    btnExportarPDF: "Export PDF",
+    btnExportarExcel: "Export Excel",
+    referenciais: "1. Reference Properties (Sample)",
+    imovel: "Property",
+    fonte: "Source",
+    valor: "Value (BRL)",
+    area: "Area (sqm)",
+    estadoCons: "Condition",
+    vidaUtil: "Useful Life (years)",
+    idade: "Age (years)",
+    legendaEstado: "Condition: A (Excellent), B (Very Good), C (Good), D (Intermediate), E (Fair), F (Poor), G (Bad), H (Very Bad)",
+    imovelAvaliando: "2. Property Being Appraised (PA)",
+    natureza: "Type",
+    custoBruto: "Gross Cost sqm (BRL)",
+    calcular: "Calculate Appraisal",
+    homogeneizacao: "Homogenization and Age Difference",
+    amostra: "Sample",
+    valorReduzido: "Reduced Value (BRL)",
+    valorUnitario: "Unit Value (BRL/sqm)",
+    pctVidaUtil: "% Useful Life",
+    fatorRoss: "Ross-Heidecken Factor",
+    valorHomogeneizado: "Homogenized Value (BRL/sqm)",
+    difIdade: "Age Diff. (years)",
+    correlacaoRH: "RH Correlation",
+    graficos: "Comparative Charts",
+    selecione: "Select",
+    apartamentos: "APARTMENTS",
+    casasAlvenaria: "BRICK HOUSES",
+    casasMadeira: "WOODEN HOUSES",
+    bancos: "BANKS",
+    hoteis: "HOTELS",
+    lojas: "STORES",
+    teatros: "THEATERS",
+    armazens: "WAREHOUSES",
+    fabricas: "FACTORIES",
+    constRurais: "RURAL BUILDINGS",
+    garagens: "GARAGES",
+    edifEscritorios: "OFFICE BUILDINGS",
+    depositos: "DEPOTS",
+    galpoes: "SHEDS",
+    silos: "SILOS",
+    aOtimo: "A - Excellent",
+    bMuitoBom: "B - Very Good",
+    cBom: "C - Good",
+    dIntermediario: "D - Intermediate",
+    eRegular: "E - Fair",
+    fDeficiente: "F - Poor",
+    gMau: "G - Bad",
+    hMuitoMau: "H - Very Bad"
+  }
+};
+
+let currentLang = 'pt';
+
+function setLanguage(lang) {
+  currentLang = lang;
+  // Elementos normais
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (el.tagName === "INPUT" && el.type === "button") {
+      el.value = translations[lang][key] || key;
+    } else {
+      el.innerText = translations[lang][key] || key;
+    }
+  });
+
+  // Tradução de <option> dos selects
+  document.querySelectorAll('select').forEach(select => {
+    select.querySelectorAll('option').forEach(option => {
+      const key = option.getAttribute('data-i18n');
+      if (key && translations[lang][key]) {
+        option.text = translations[lang][key];
+      }
+    });
+  });
+}
+
+// Chame setLanguage('pt') ao carregar a página para garantir que tudo fique no idioma inicial
+window.addEventListener('DOMContentLoaded', () => setLanguage(currentLang));
+
+// ...seu código existente continua aqui...
+
 const vidaUtilTabela = {
   "APARTAMENTOS": 60, "BANCOS": 70, "CASAS DE ALVENARIA": 70, "CASAS DE MADEIRA": 45, "HOTÉIS": 50,
   "LOJAS": 70, "TEATROS": 50, "ARMAZÉNS": 75, "FÁBRICAS": 50, "CONST. RURAIS": 60, "GARAGENS": 60,
